@@ -12,7 +12,7 @@ const AddToyForm = () => {
     quantity: "",
     description: "",
   });
-
+  console.log(formValues);
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setFormValues({ ...formValues, [name]: value });
@@ -32,16 +32,16 @@ const AddToyForm = () => {
     const description = form.description.value;
 
     // Perform form submission or data handling here
-    console.log("Form submitted:");
-    console.log("Picture URL:", pictureUrl);
-    console.log("Name:", name);
-    console.log("Seller Name:", sellerName);
-    console.log("Seller Email:", sellerEmail);
-    console.log("Sub-category:", subCategory);
-    console.log("Price:", price);
-    console.log("Rating:", rating);
-    console.log("Quantity:", quantity);
-    console.log("Description:", description);
+
+    fetch("http://localhost:5000/toys", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(formValues),
+    })
+      .then((res) => res.json())
+      .then((result) => {
+        console.log(result);
+      });
 
     // Reset the form fields
     form.reset();
