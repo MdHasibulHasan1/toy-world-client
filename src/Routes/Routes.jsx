@@ -1,15 +1,21 @@
 import { createBrowserRouter } from "react-router-dom";
-import App from "../App";
-import Footer from "../Pages/Shared/Footer";
+
+import MainLayout from "../Layout/MainLayout";
+import AddToyForm from "../Pages/AddToyForm";
+import SignUpPage from "../Pages/SignUp/SignUp";
 
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <App></App>,
+    element: <MainLayout></MainLayout>,
     children: [
       {
         path: "/",
-        element: <Footer></Footer>,
+        element: <SignUpPage></SignUpPage>,
+      },
+      {
+        path: "/add_a_toys",
+        element: <AddToyForm></AddToyForm>,
       },
     ],
   },

@@ -11,6 +11,7 @@ function App() {
   return (
     <>
       <SignUpPage></SignUpPage>
+
       <Footer></Footer>
     </>
   );
