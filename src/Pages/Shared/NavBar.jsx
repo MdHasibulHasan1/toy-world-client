@@ -63,30 +63,34 @@ const NavBar = () => {
                 All Toys
               </NavLink>
             </li>
-            <li>
-              <NavLink
-                to="/my_toys"
-                aria-label="my_toys"
-                title="My Toys"
-                className={({ isActive }) =>
-                  isActive ? "text-blue-700" : "default"
-                }
-              >
-                My Toys
-              </NavLink>
-            </li>
-            <li>
-              <NavLink
-                to="/add_a_toys"
-                aria-label="add_a_toys"
-                title="Add A Toys"
-                className={({ isActive }) =>
-                  isActive ? "text-blue-700" : "default"
-                }
-              >
-                Add A Toys
-              </NavLink>
-            </li>
+            {user && (
+              <li>
+                <NavLink
+                  to="/my_toys"
+                  aria-label="my_toys"
+                  title="My Toys"
+                  className={({ isActive }) =>
+                    isActive ? "text-blue-700" : "default"
+                  }
+                >
+                  My Toys
+                </NavLink>
+              </li>
+            )}
+            {user && (
+              <li>
+                <NavLink
+                  to="/add_a_toys"
+                  aria-label="add_a_toys"
+                  title="Add A Toys"
+                  className={({ isActive }) =>
+                    isActive ? "text-blue-700" : "default"
+                  }
+                >
+                  Add A Toys
+                </NavLink>
+              </li>
+            )}
             <li>
               <NavLink
                 to="/blogs"
@@ -99,20 +103,6 @@ const NavBar = () => {
                 Blog
               </NavLink>
             </li>
-            {user && (
-              <li>
-                <NavLink
-                  to="/profile"
-                  aria-label="Update Profile"
-                  title="Update Profile"
-                  className={({ isActive }) =>
-                    isActive ? "text-blue-700" : "default"
-                  }
-                >
-                  Update Profile
-                </NavLink>
-              </li>
-            )}
 
             <li>
               {user ? (
@@ -173,30 +163,34 @@ const NavBar = () => {
               All Toys
             </NavLink>
           </li>
-          <li>
-            <NavLink
-              to="/my_toys"
-              aria-label="my_toys"
-              title="My Toys"
-              className={({ isActive }) =>
-                isActive ? "text-blue-700" : "default"
-              }
-            >
-              My Toys
-            </NavLink>
-          </li>
-          <li>
-            <NavLink
-              to="/add_a_toys"
-              aria-label="add_a_toys"
-              title="Add A Toys"
-              className={({ isActive }) =>
-                isActive ? "text-blue-700" : "default"
-              }
-            >
-              Add A Toys
-            </NavLink>
-          </li>
+          {user && (
+            <li>
+              <NavLink
+                to="/my_toys"
+                aria-label="my_toys"
+                title="My Toys"
+                className={({ isActive }) =>
+                  isActive ? "text-blue-700" : "default"
+                }
+              >
+                My Toys
+              </NavLink>
+            </li>
+          )}
+          {user && (
+            <li>
+              <NavLink
+                to="/add_a_toys"
+                aria-label="add_a_toys"
+                title="Add A Toys"
+                className={({ isActive }) =>
+                  isActive ? "text-blue-700" : "default"
+                }
+              >
+                Add A Toys
+              </NavLink>
+            </li>
+          )}
           <li>
             <NavLink
               to="/blogs"
@@ -209,20 +203,6 @@ const NavBar = () => {
               Blogs
             </NavLink>
           </li>
-          {user && (
-            <li>
-              <NavLink
-                to="/profile"
-                aria-label="Update Profile"
-                title="Update Profile"
-                className={({ isActive }) =>
-                  isActive ? "text-blue-700" : "default"
-                }
-              >
-                Update Profile
-              </NavLink>
-            </li>
-          )}
 
           <li>
             {user ? (
