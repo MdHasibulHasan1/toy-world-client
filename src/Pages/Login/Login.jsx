@@ -4,14 +4,27 @@ import Lottie from "react-lottie";
 import animationData from "../../assets/animation.json";
 import { AuthContext } from "../../providers/AuthProvider";
 import toast from "react-hot-toast";
+import { Link } from "react-router-dom";
+import { FaGoogle, FaGithub } from "react-icons/fa";
 
 const Login = () => {
   const [error, setError] = useState("");
-  const [success, setSuccess] = useState("");
   const [showPassword, setShowPassword] = useState(false);
-  const { createUser, updateUserData, signIn } = useContext(AuthContext);
+  const { createUser, signInWithGoogle, updateUserData, signIn } =
+    useContext(AuthContext);
   console.log(createUser);
 
+  const handleGoogleSignIn = () => {
+    signInWithGoogle()
+      .then((result) => {
+        const loggedUser = result.user;
+        navigate("/");
+        toast.success("Login successful!");
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
   const handleSubmit = (e) => {
     event.preventDefault();
     const form = event.target;
@@ -20,7 +33,6 @@ const Login = () => {
 
     // validation
     setError("");
-    setSuccess("");
 
     signIn(email, password)
       .then((result) => {
@@ -117,9 +129,27 @@ const Login = () => {
                 type="submit"
                 className="bg-blue-500 block w-full text-white py-2 px-4 rounded-md hover:bg-blue-600 focus:outline-none focus:bg-blue-600"
               >
-                Register
+                Login
               </button>
             </form>
+            <div className="text-red-500 mt-2">{error && error}</div>
+            <p>
+              New to Toy World?
+              <Link
+                className="hover:text-blue-500 underline ml-3"
+                to="/sign_up"
+              >
+                Create an account
+              </Link>
+            </p>
+            <div>
+              <button
+                onClick={handleGoogleSignIn}
+                className="btn my-3 btn-outline hover:btn-primary w-full"
+              >
+                <FaGoogle /> <span className="ml-3">Login with Google</span>
+              </button>
+            </div>
           </div>
         </div>
       </motion.div>

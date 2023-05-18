@@ -1,42 +1,50 @@
-import React, { useState } from "react";
-
+import React, { useState, useContext } from "react";
+import { AuthContext } from "../providers/AuthProvider";
+import { useForm } from "react-hook-form";
+import CreatableSelect from "react-select/creatable";
 const AddToyForm = () => {
-  const [formValues, setFormValues] = useState({
-    pictureUrl: "",
-    name: "",
-    sellerName: "",
-    sellerEmail: "",
-    subCategory: "",
-    price: "",
-    rating: "",
-    quantity: "",
-    description: "",
-  });
-  console.log(formValues);
+  const [subCategory, setSubCategory] = useState(null);
+  const { user } = useContext(AuthContext);
+  /* 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
-    setFormValues({ ...formValues, [name]: value });
-  };
+    setFormValues({
+      ...formValues,
+      sellerEmail: user?.email,
+      subCategory,
+      [name]: value,
+    });
+  }; */
 
   const handleSubmit = (event) => {
     event.preventDefault();
     const form = event.target;
     const pictureUrl = form.pictureUrl.value;
-    const name = form.name.value;
+    const toyName = form.toyName.value;
     const sellerName = form.sellerName.value;
     const sellerEmail = form.sellerEmail.value;
-    const subCategory = form.subCategory.value;
+    // const subCategory = form.subCategory;
     const price = form.price.value;
     const rating = form.rating.value;
     const quantity = form.quantity.value;
     const description = form.description.value;
 
-    // Perform form submission or data handling here
-
+    const data = {
+      pictureUrl,
+      toyName,
+      sellerName,
+      sellerEmail,
+      price,
+      rating,
+      quantity,
+      description,
+      subCategories: subCategory,
+    };
+    console.log(data);
     fetch("http://localhost:5000/toys", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(formValues),
+      body: JSON.stringify(data),
     })
       .then((res) => res.json())
       .then((result) => {
@@ -47,8 +55,17 @@ const AddToyForm = () => {
     form.reset();
   };
 
+  const options = [
+    { value: "teddy bear", label: "teddy bear" },
+    { value: "horse", label: "horse" },
+    { value: "dinosaur", label: "dinosaur" },
+    { value: "dogs", label: "dogs" },
+    { value: "cats", label: "cats" },
+    { value: "cows", label: "cows" },
+    { value: "unicorn", label: "unicorn" },
+  ];
   return (
-    <div className="container mx-auto w-6/12 mt-">
+    <div className="container mx-auto w-6/12 mt-20">
       <h1 className="text-2xl font-bold mb-4">Add A Toy</h1>
       <form onSubmit={handleSubmit}>
         <div className="mb-4">
@@ -62,25 +79,21 @@ const AddToyForm = () => {
             type="text"
             id="pictureUrl"
             name="pictureUrl"
-            value={formValues.pictureUrl}
-            onChange={handleInputChange}
             className="border border-gray-300 rounded-md px-3 py-2 w-full focus:outline-none focus:ring focus:ring-blue-500"
             required
           />
         </div>
         <div className="mb-4">
           <label
-            htmlFor="name"
+            htmlFor="toyName"
             className="block text-gray-700 font-medium mb-2"
           >
-            Name
+            Toy Name
           </label>
           <input
             type="text"
-            id="name"
-            name="name"
-            value={formValues.name}
-            onChange={handleInputChange}
+            id="toyName"
+            name="toyName"
             className="border border-gray-300 rounded-md px-3 py-2 w-full focus:outline-none focus:ring focus:ring-blue-500"
             required
           />
@@ -96,8 +109,6 @@ const AddToyForm = () => {
             type="text"
             id="sellerName"
             name="sellerName"
-            value={formValues.sellerName}
-            onChange={handleInputChange}
             className="border border-gray-300 rounded-md px-3 py-2 w-full focus:outline-none focus:ring focus:ring-blue-500"
           />
         </div>
@@ -112,8 +123,9 @@ const AddToyForm = () => {
             type="email"
             id="sellerEmail"
             name="sellerEmail"
-            value={formValues.sellerEmail}
-            onChange={handleInputChange}
+            readOnly
+            defaultValue={user?.email}
+            // onChange={handleInputChange}
             className="border border-gray-300 rounded-md px-3 py-2 w-full focus:outline-none focus:ring focus:ring-blue-500"
           />
         </div>
@@ -124,14 +136,12 @@ const AddToyForm = () => {
           >
             Sub-category
           </label>
-          <input
-            type="text"
-            id="subCategory"
-            name="subCategory"
-            value={formValues.subCategory}
-            onChange={handleInputChange}
-            className="border border-gray-300 rounded-md px-3 py-2 w-full focus:outline-none focus:ring focus:ring-blue-500"
-            required
+          <CreatableSelect
+            className="w-75"
+            defaultValue={subCategory}
+            onChange={setSubCategory}
+            options={options}
+            isMulti
           />
         </div>
         <div className="mb-4">
@@ -145,8 +155,6 @@ const AddToyForm = () => {
             type="number"
             id="price"
             name="price"
-            value={formValues.price}
-            onChange={handleInputChange}
             className="border border-gray-300 rounded-md px-3 py-2 w-full focus:outline-none focus:ring focus:ring-blue-500"
             required
           />
@@ -162,8 +170,6 @@ const AddToyForm = () => {
             type="number"
             id="rating"
             name="rating"
-            value={formValues.rating}
-            onChange={handleInputChange}
             className="border border-gray-300 rounded-md px-3 py-2 w-full focus:outline-none focus:ring focus:ring-blue-500"
             required
           />
@@ -179,12 +185,20 @@ const AddToyForm = () => {
             type="number"
             id="quantity"
             name="quantity"
-            value={formValues.quantity}
-            onChange={handleInputChange}
             className="border border-gray-300 rounded-md px-3 py-2 w-full focus:outline-none focus:ring focus:ring-blue-500"
             required
           />
         </div>
+        {/* <div className="mb-4">
+          {" "}
+          <CreatableSelect
+            className="w-75"
+            defaultValue={subCategory}
+            onChange={setSubCategory}
+            options={options}
+            isMulti
+          />
+        </div> */}
         <div className="mb-4">
           <label
             htmlFor="description"
@@ -195,8 +209,6 @@ const AddToyForm = () => {
           <textarea
             id="description"
             name="description"
-            value={formValues.description}
-            onChange={handleInputChange}
             className="border border-gray-300 rounded-md px-3 py-2 w-full focus:outline-none focus:ring focus:ring-blue-500"
             rows={4}
             required

@@ -2,8 +2,9 @@ import React, { useState, useContext } from "react";
 import { motion } from "framer-motion";
 import Lottie from "react-lottie";
 import animationData from "../../assets/animation.json";
-
+import toast from "react-hot-toast";
 import { AuthContext } from "../../providers/AuthProvider";
+import { Link } from "react-router-dom";
 const SignUpPage = () => {
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
@@ -166,6 +167,13 @@ const SignUpPage = () => {
                 Register
               </button>
             </form>
+            <div className="text-red-400 mt-2">{error || success}</div>
+            <p>
+              Already have an account?
+              <Link className="hover:text-blue-500 underline" to="/login">
+                Login
+              </Link>
+            </p>
           </div>
         </div>
       </motion.div>
