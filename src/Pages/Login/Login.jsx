@@ -74,7 +74,7 @@ const Login = () => {
         className=""
       >
         <h2 className="text-4xl font-extrabold text-center">
-          Sign up for an account
+          Login to Toy World
         </h2>
         <div className="md:grid md:grid-cols-2 items-center">
           <div className="px-8">
