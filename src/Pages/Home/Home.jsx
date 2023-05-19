@@ -7,7 +7,7 @@ import TabCom from "./TabCom";
 import ToySection from "./ToySection";
 const Home = () => {
   return (
-    <div className="mt-20">
+    <div className="pt-20">
       <Banner></Banner>
       <NewCollection></NewCollection>
 

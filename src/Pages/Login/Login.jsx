@@ -4,7 +4,7 @@ import Lottie from "react-lottie";
 import animationData from "../../assets/animation.json";
 import { AuthContext } from "../../providers/AuthProvider";
 import toast from "react-hot-toast";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { FaGoogle, FaGithub } from "react-icons/fa";
 
 const Login = () => {
@@ -13,12 +13,13 @@ const Login = () => {
   const { createUser, signInWithGoogle, updateUserData, signIn } =
     useContext(AuthContext);
   console.log(createUser);
-
+  const navigate = useNavigate();
   const handleGoogleSignIn = () => {
     signInWithGoogle()
       .then((result) => {
         const loggedUser = result.user;
         navigate("/");
+
         toast.success("Login successful!");
       })
       .catch((error) => {

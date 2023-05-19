@@ -120,15 +120,15 @@ const TabCom = () => {
         ))}
       </div>
 
-      <div className="tab-content">
+      <div className="tab-content md:grid grid-cols-4 justify-center gap-4 mb-6">
         {data.categories
           .find((category) => category.name === activeTab)
           ?.subCategories.map((subCategory, index) => (
-            <div key={index} className="flex items-center">
+            <div key={index} className="flex mx-auto items-center">
               <img
                 src={subCategory.image}
                 alt={subCategory.name}
-                className="w-16 h-16 rounded-full mr-4"
+                className="w-20 h-20 object-fill rounded-full mr-4"
               />
               <div>
                 <p>{subCategory.name}</p>

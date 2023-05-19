@@ -5,18 +5,14 @@ import {
   onAuthStateChanged,
   signInWithEmailAndPassword,
   signOut,
-  updateProfile,
   signInWithPopup,
   GoogleAuthProvider,
-  GithubAuthProvider,
-  sendPasswordResetEmail,
 } from "firebase/auth";
 import app from "../firebase/firebase.config";
 
 export const AuthContext = createContext();
 const auth = getAuth(app);
 const googleAuthProvider = new GoogleAuthProvider();
-const gitHubAuthProvider = new GithubAuthProvider();
 
 const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
@@ -28,18 +24,7 @@ const AuthProvider = ({ children }) => {
 
     return createUserWithEmailAndPassword(auth, email, password);
   };
-  const updateUserData = (user, name, photo) => {
-    updateProfile(user, {
-      displayName: name,
-      photoURL: photo,
-    })
-      .then(() => {
-        console.log("user name updated");
-      })
-      .catch((error) => {
-        setError(error.message);
-      });
-  };
+
   const signIn = (email, password) => {
     setLoading(true);
     return signInWithEmailAndPassword(auth, email, password);
@@ -50,9 +35,6 @@ const AuthProvider = ({ children }) => {
   };
   const signInWithGoogle = () => {
     return signInWithPopup(auth, googleAuthProvider);
-  };
-  const signInWithGitHub = () => {
-    return signInWithPopup(auth, gitHubAuthProvider);
   };
 
   useEffect(() => {
@@ -68,15 +50,11 @@ const AuthProvider = ({ children }) => {
 
   const authInfo = {
     user,
-    setLoading,
     loading,
     createUser,
-    updateUserData,
     signIn,
     logOut,
-    auth,
     signInWithGoogle,
-    signInWithGitHub,
   };
 
   return (

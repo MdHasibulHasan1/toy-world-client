@@ -11,7 +11,7 @@ const NavBar = () => {
   const handleLogout = () => {
     logOut()
       .then((result) => {
-        toast.success("Log Out successful!");
+        toast.success("Logout successful!");
       })
       .catch((error) => console.error(error));
   };
@@ -37,7 +37,7 @@ const NavBar = () => {
           </label>
           <ul
             tabIndex={0}
-            className="menu menu-compact dropdown-content mt-3 p-2 shadow bg-base-100 rounded-box w-52"
+            className="menu menu-compact dropdown-content  p-2 shadow bg-base-100 rounded-box w-52"
           >
             <li tabIndex={0}>
               <NavLink
@@ -236,11 +236,7 @@ const NavBar = () => {
       <div className="navbar-end flex justify-end">
         {user && (
           <div>
-            <div
-              onClick={() => navigate("/profile")}
-              className="tooltip tooltip-left"
-              data-tip={user?.displayName}
-            >
+            <div className="tooltip tooltip-left" data-tip={user?.displayName}>
               <img
                 className="ring ring-blue-300 md:ring-blue-500 rounded-full block w-8"
                 src={user?.photoURL}

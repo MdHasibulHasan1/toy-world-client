@@ -34,7 +34,8 @@ const Banner = () => {
         </div>
         <div className="lg:w-6/12 mt-4 pl-8">
           <h1 className="text-4xl font-bold text-black">
-            Toy World - Where Imagination Comes to Life!
+            <span className="">Toy World -</span> Where Imagination Comes to
+            Life!
           </h1>
           <p className="text-xl text-black mt-4">
             Discover a world of endless fun and adventure with our wide range of

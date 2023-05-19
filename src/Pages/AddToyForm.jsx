@@ -1,20 +1,9 @@
 import React, { useState, useContext } from "react";
 import { AuthContext } from "../providers/AuthProvider";
-import { useForm } from "react-hook-form";
 import CreatableSelect from "react-select/creatable";
 const AddToyForm = () => {
   const [subCategory, setSubCategory] = useState(null);
   const { user } = useContext(AuthContext);
-  /* 
-  const handleInputChange = (e) => {
-    const { name, value } = e.target;
-    setFormValues({
-      ...formValues,
-      sellerEmail: user?.email,
-      subCategory,
-      [name]: value,
-    });
-  }; */
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -65,7 +54,7 @@ const AddToyForm = () => {
     { value: "unicorn", label: "unicorn" },
   ];
   return (
-    <div className="container mx-auto w-6/12 mt-20">
+    <div className="container mx-auto w-11/12 md:w-8/12 lg:w-6/12 py-20 ">
       <h1 className="text-2xl font-bold mb-4">Add A Toy</h1>
       <form onSubmit={handleSubmit}>
         <div className="mb-4">

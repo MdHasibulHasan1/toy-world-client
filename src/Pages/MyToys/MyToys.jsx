@@ -1,34 +1,50 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { AuthContext } from "../../providers/AuthProvider";
+import toast from "react-hot-toast";
 import Swal from "sweetalert2";
 
 const MyToys = () => {
-  const { user } = useContext(AuthContext);
-  const [myToys, setMyToys] = useState();
+  const [selectedToy, setSelectedToy] = useState(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [myToys, setMyToys] = useState([]);
   const [searchText, setSearchText] = useState("");
+  const { user } = useContext(AuthContext);
+
   useEffect(() => {
+    // Fetch my toys data here
     fetch(`http://localhost:5000/myToys/${user?.email}`)
       .then((res) => res.json())
       .then((data) => {
         console.log(data);
         setMyToys(data);
       });
-  }, [user]);
+  }, [user, isModalOpen]);
 
-  const handleToyUpdate = (data) => {
-    console.log(data);
-    fetch(`http://localhost:5000/updateToy/${data._id}`, {
+  const handleEditToy = (toy) => {
+    setSelectedToy(toy);
+    setIsModalOpen(true);
+  };
+
+  const handleUpdateToy = (updatedToy) => {
+    fetch(`http://localhost:5000/updateToy/${updatedToy._id}`, {
       method: "PUT",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(data),
+      body: JSON.stringify(updatedToy),
     })
       .then((res) => res.json())
       .then((result) => {
         if (result.modifiedCount > 0) {
-          setControl(!control);
+          toast.success("Edit successful!");
         }
         console.log(result);
       });
+
+    console.log("Updated Toy:", updatedToy);
+    setIsModalOpen(false);
+  };
+
+  const handleModalClose = () => {
+    setIsModalOpen(false);
   };
 
   const handleDelete = (id) => {
@@ -51,18 +67,17 @@ const MyToys = () => {
               Swal.fire("Deleted!", "Your file has been deleted.", "success");
             }
           });
-        //
 
         const remaining = myToys.filter((toy) => toy._id !== id);
         setMyToys(remaining);
       }
     });
   };
-  console.log(myToys);
+
   return (
     <div>
-      <div className="my-jobs-container">
-        <h1 className="text-center p-4 ">ALL My Jobs</h1>
+      <div className="">
+        <h1 className="text-center p-4">ALL My Toys</h1>
         <div className="search-box p-2 text-center">
           <input
             onChange={(e) => setSearchText(e.target.value)}
@@ -95,14 +110,17 @@ const MyToys = () => {
                     />
                   </td>
                   <td>{toy.toyName}</td>
-
                   <td>{toy.quantity}</td>
                   <td>{toy.price}</td>
                   <td>
-                    <button className="btn btn-sm">Edit</button>
+                    <button
+                      className="btn btn-sm"
+                      onClick={() => handleEditToy(toy)}
+                    >
+                      Edit
+                    </button>
                   </td>
                   <td>
-                    {" "}
                     <button onClick={() => handleDelete(toy._id)}>
                       Delete
                     </button>
@@ -113,6 +131,84 @@ const MyToys = () => {
           </table>
         </div>
       </div>
+
+      {/* Modal Component */}
+      {isModalOpen && (
+        <div className="fixed inset-0 flex items-center justify-center z-50">
+          <div className="bg-white w-96 p-6 rounded-lg shadow-lg">
+            <h2 className="text-xl font-bold mb-4">Edit Toy</h2>
+            <form>
+              <div>
+                <label className="block mb-2">Toy Name</label>
+                <input
+                  type="text"
+                  className="w-full p-2 border border-gray-300 rounded"
+                  value={selectedToy.toyName}
+                  onChange={(e) =>
+                    setSelectedToy({
+                      ...selectedToy,
+                      toyName: e.target.value,
+                    })
+                  }
+                />
+              </div>
+              <div>
+                <label className="block mb-2">Quantity</label>
+                <input
+                  type="number"
+                  className="w-full p-2 border border-gray-300 rounded"
+                  value={selectedToy.quantity}
+                  onChange={(e) =>
+                    setSelectedToy({
+                      ...selectedToy,
+                      quantity: parseInt(e.target.value),
+                    })
+                  }
+                />
+              </div>
+              <div>
+                <label className="block mb-2">Price</label>
+                <input
+                  type="number"
+                  className="w-full p-2 border border-gray-300 rounded"
+                  value={selectedToy.price}
+                  onChange={(e) =>
+                    setSelectedToy({
+                      ...selectedToy,
+                      price: parseFloat(e.target.value),
+                    })
+                  }
+                />
+              </div>
+              <div>
+                <label className="block mb-2">Description</label>
+                <textarea
+                  className="w-full p-2 border border-gray-300 rounded"
+                  rows="4"
+                  value={selectedToy.description}
+                  onChange={(e) =>
+                    setSelectedToy({
+                      ...selectedToy,
+                      description: e.target.value,
+                    })
+                  }
+                ></textarea>
+              </div>
+            </form>
+            <div className="flex justify-end mt-4">
+              <button
+                className="btn btn-primary mr-2"
+                onClick={() => handleUpdateToy(selectedToy)}
+              >
+                Save Changes
+              </button>
+              <button className="btn btn-secondary" onClick={handleModalClose}>
+                Cancel
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 };
