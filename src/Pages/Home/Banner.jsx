@@ -20,7 +20,7 @@ const Banner = () => {
   }, []);
 
   return (
-    <div className="bg-slate-100 py-8" data-aos="fade-up">
+    <div className="py-0" data-aos="fade-up">
       <div className="container mx-auto lg:flex items-center">
         <div className="lg:w-6/12 rounded-lg">
           <div className="w-full h-full">
