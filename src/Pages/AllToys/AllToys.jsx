@@ -13,8 +13,15 @@ const AllToys = () => {
 
   console.log(allToys);
   return (
-    <div className="mt-20">
-      <h1>all toys</h1>
+    <div className="mt-20 grid md:grid-cols-3 gap-5 sm:grid-cols-2">
+      {allToys?.map((toy) => (
+        <div key={toy._id} className="">
+          <div className="">
+            <h1>{toy.toyName}</h1>
+            <img className="w-full" src={toy.pictureUrl} alt="" />
+          </div>
+        </div>
+      ))}
     </div>
   );
 };

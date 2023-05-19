@@ -1,10 +1,15 @@
-#root {
-    height: 100%;
+
+  @keyframes spin-slow {
+    0% {
+      transform: rotate(0);
+    }
+    100% {
+      transform: rotate(360deg);
+    }
   }
-  html,
-  body {
-    position: relative;
-    height: 100%;
+  
+  .animate-spin-slow {
+    animation: spin-slow 5s linear infinite; /* Adjust the animation duration as desired */
   }
   
   body {
