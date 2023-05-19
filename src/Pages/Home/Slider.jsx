@@ -42,7 +42,7 @@ export default function App() {
                 src={photo.src}
                 alt="not"
                 viewBox="0 0 24 24"
-                className="rounded-full opacity-70 hover:opacity-100 h-5/6 p-3 w-10/12 mx-auto block border hover:border-dashed animate-spin-slow hover:border-black"
+                className="rounded-full opacity-70 hover:opacity-100 h-5/6 p-3 w-10/12 mx-auto block border hover:border-dashed hover:border-black"
               />
             </div>
           </SwiperSlide>

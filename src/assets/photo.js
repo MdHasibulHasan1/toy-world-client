@@ -30,7 +30,7 @@ export const photos = [
       height: 3
     },
     {
-      src: "https://i.ibb.co/JpJfjYr/unicorn-cute-horse-horn-fairy-tale-fantastic-animal-character-magical-stories-vector-clip-art-pony-k.jpg",
+      src: "https://i.ibb.co/Z63gGx4/images-q-tbn-ANd9-Gc-Rkqam5-Pd-s-Jq3-Px-PNr-Mx9s-Wru-UZExbtnb4-XA-usqp-CAU.jpg",
       width: 3,
       height: 4
     },

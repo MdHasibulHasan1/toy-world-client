@@ -15,6 +15,22 @@ const MyToys = () => {
       });
   }, [user]);
 
+  const handleToyUpdate = (data) => {
+    console.log(data);
+    fetch(`http://localhost:5000/updateToy/${data._id}`, {
+      method: "PUT",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(data),
+    })
+      .then((res) => res.json())
+      .then((result) => {
+        if (result.modifiedCount > 0) {
+          setControl(!control);
+        }
+        console.log(result);
+      });
+  };
+
   const handleDelete = (id) => {
     Swal.fire({
       title: "Are you sure?",

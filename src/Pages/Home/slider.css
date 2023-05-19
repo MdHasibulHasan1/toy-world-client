@@ -1,17 +1,4 @@
 
-  @keyframes spin-slow {
-    0% {
-      transform: rotate(0);
-    }
-    100% {
-      transform: rotate(360deg);
-    }
-  }
-  
-  .animate-spin-slow {
-    animation: spin-slow 5s linear infinite; /* Adjust the animation duration as desired */
-  }
-  
   body {
     background: #eee;
     font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
