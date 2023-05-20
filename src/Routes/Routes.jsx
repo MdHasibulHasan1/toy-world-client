@@ -3,6 +3,7 @@ import { createBrowserRouter } from "react-router-dom";
 import MainLayout from "../Layout/MainLayout";
 import AddToyForm from "../Pages/AddToyForm";
 import AllToys from "../Pages/AllToys/AllToys";
+import ToyDetail from "../Pages/AllToys/ToyDetail";
 import BlogPage from "../Pages/BlogPage/BlogPage";
 import ErrorPage from "../Pages/ErrorPage/ErrorPage";
 import Home from "../Pages/Home/Home";
@@ -43,6 +44,12 @@ const router = createBrowserRouter([
       {
         path: "/blogs",
         element: <BlogPage></BlogPage>,
+      },
+      {
+        path: "toy/:Id",
+        element: <ToyDetail></ToyDetail>,
+        loader: ({ params }) =>
+          fetch(`https://toy-marketplace-server-xi.vercel.app/toys`),
       },
     ],
   },

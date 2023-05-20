@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 
 const AllToys = () => {
   const [toys, setToys] = useState([]);
   const [searchText, setSearchText] = useState("");
   useEffect(() => {
-    fetch(`http://localhost:5000/toys`)
+    fetch(`https://toy-marketplace-server-xi.vercel.app/toys`)
       .then((res) => res.json())
       .then((data) => {
         console.log(data);
@@ -13,7 +14,9 @@ const AllToys = () => {
   }, []);
 
   const handleSearch = () => {
-    fetch(`http://localhost:5000/getToysByText/${searchText}`)
+    fetch(
+      `https://toy-marketplace-server-xi.vercel.app/getToysByText/${searchText}`
+    )
       .then((res) => res.json())
       .then((data) => {
         console.log(data);
@@ -61,7 +64,9 @@ const AllToys = () => {
                 <td>{toy.price}</td>
                 <td>{toy.quantity}</td>
                 <td>
-                  <button className="btn btn-sm">View Details</button>
+                  <Link className="block w-full" to={`/toy/${toy._id}`}>
+                    <button className="btn btn-sm">View Details</button>
+                  </Link>
                 </td>
               </tr>
             ))}

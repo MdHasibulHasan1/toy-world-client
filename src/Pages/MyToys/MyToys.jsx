@@ -9,10 +9,11 @@ const MyToys = () => {
   const [myToys, setMyToys] = useState([]);
   const [searchText, setSearchText] = useState("");
   const { user } = useContext(AuthContext);
+  const [sortOrder, setSortOrder] = useState("asc"); // Added sorting state
 
   useEffect(() => {
     // Fetch my toys data here
-    fetch(`http://localhost:5000/myToys/${user?.email}`)
+    fetch(`https://toy-marketplace-server-xi.vercel.app/myToys/${user?.email}`)
       .then((res) => res.json())
       .then((data) => {
         console.log(data);
@@ -20,17 +21,25 @@ const MyToys = () => {
       });
   }, [user, isModalOpen]);
 
+  useEffect(() => {
+    // Sort the toys when sortOrder changes
+    sortToys();
+  }, [sortOrder]);
+
   const handleEditToy = (toy) => {
     setSelectedToy(toy);
     setIsModalOpen(true);
   };
 
   const handleUpdateToy = (updatedToy) => {
-    fetch(`http://localhost:5000/updateToy/${updatedToy._id}`, {
-      method: "PUT",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(updatedToy),
-    })
+    fetch(
+      `https://toy-marketplace-server-xi.vercel.app/updateToy/${updatedToy._id}`,
+      {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(updatedToy),
+      }
+    )
       .then((res) => res.json())
       .then((result) => {
         if (result.modifiedCount > 0) {
@@ -58,7 +67,7 @@ const MyToys = () => {
       confirmButtonText: "Yes, delete it!",
     }).then((result) => {
       if (result.isConfirmed) {
-        fetch(`http://localhost:5000/toys/${id}`, {
+        fetch(`https://toy-marketplace-server-xi.vercel.app/toys/${id}`, {
           method: "DELETE",
         })
           .then((res) => res.json())
@@ -74,6 +83,25 @@ const MyToys = () => {
     });
   };
 
+  const handleSortAscending = () => {
+    setSortOrder("asc");
+  };
+
+  const handleSortDescending = () => {
+    setSortOrder("desc");
+  };
+
+  const sortToys = () => {
+    const sortedToys = [...myToys].sort((a, b) => {
+      if (sortOrder === "asc") {
+        return a.price - b.price;
+      } else {
+        return b.price - a.price;
+      }
+    });
+    setMyToys(sortedToys);
+  };
+
   return (
     <div>
       <div className="">
@@ -86,6 +114,17 @@ const MyToys = () => {
           />
         </div>
         <div className="overflow-x-auto">
+          <div className="flex justify-end p-4">
+            <button
+              className="btn btn-primary mr-2"
+              onClick={handleSortAscending}
+            >
+              Sort Ascending
+            </button>
+            <button className="btn btn-primary" onClick={handleSortDescending}>
+              Sort Descending
+            </button>
+          </div>
           <table className="table w-full lg:w-10/12 mx-auto">
             <thead>
               <tr>
