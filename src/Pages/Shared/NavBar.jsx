@@ -8,6 +8,8 @@ import { AuthContext } from "../../providers/AuthProvider";
 const NavBar = () => {
   const { user, logOut } = useContext(AuthContext);
   const navigate = useNavigate();
+
+  // Handle logout functionality
   const handleLogout = () => {
     logOut()
       .then((result) => {
@@ -15,11 +17,15 @@ const NavBar = () => {
       })
       .catch((error) => console.error(error));
   };
+
   return (
     <div className="navbar bg-slate-100 fixed top-0 z-50">
+      {/* Left side of the navbar */}
       <div className="navbar-start flex items-center">
+        {/* Dropdown menu */}
         <div className="dropdown">
           <label tabIndex={0} className="btn btn-ghost lg:hidden">
+            {/* Menu icon */}
             <svg
               xmlns="http://www.w3.org/2000/svg"
               className="h-5 w-5"
@@ -35,10 +41,13 @@ const NavBar = () => {
               />
             </svg>
           </label>
+
+          {/* Dropdown menu content */}
           <ul
             tabIndex={0}
-            className="menu menu-compact dropdown-content  p-2 shadow bg-base-100 rounded-box w-52"
+            className="menu menu-compact dropdown-content p-2 shadow bg-base-100 rounded-box w-52"
           >
+            {/* Navigation links */}
             <li tabIndex={0}>
               <NavLink
                 to="/"
@@ -63,20 +72,18 @@ const NavBar = () => {
                 All Toys
               </NavLink>
             </li>
-            {user && (
-              <li>
-                <NavLink
-                  to="/my_toys"
-                  aria-label="my_toys"
-                  title="My Toys"
-                  className={({ isActive }) =>
-                    isActive ? "text-blue-700" : "default"
-                  }
-                >
-                  My Toys
-                </NavLink>
-              </li>
-            )}
+            <li>
+              <NavLink
+                to="/my_toys"
+                aria-label="my_toys"
+                title="My Toys"
+                className={({ isActive }) =>
+                  isActive ? "text-blue-700" : "default"
+                }
+              >
+                My Toys
+              </NavLink>
+            </li>
             {user && (
               <li>
                 <NavLink
@@ -103,7 +110,6 @@ const NavBar = () => {
                 Blog
               </NavLink>
             </li>
-
             <li>
               {user ? (
                 <NavLink
@@ -133,12 +139,16 @@ const NavBar = () => {
           </ul>
         </div>
 
-        <span className="text-gray-600 font-semibold sm:text-3xl ">
+        {/* Logo */}
+        <span className="text-gray-600 font-semibold sm:text-3xl">
           Toy World
         </span>
       </div>
+
+      {/* Center of the navbar */}
       <div className="navbar-center hidden lg:flex">
         <ul className="menu menu-horizontal px-1">
+          {/* Navigation links */}
           <li tabIndex={0}>
             <NavLink
               to="/"
@@ -163,20 +173,18 @@ const NavBar = () => {
               All Toys
             </NavLink>
           </li>
-          {user && (
-            <li>
-              <NavLink
-                to="/my_toys"
-                aria-label="my_toys"
-                title="My Toys"
-                className={({ isActive }) =>
-                  isActive ? "text-blue-700" : "default"
-                }
-              >
-                My Toys
-              </NavLink>
-            </li>
-          )}
+          <li>
+            <NavLink
+              to="/my_toys"
+              aria-label="my_toys"
+              title="My Toys"
+              className={({ isActive }) =>
+                isActive ? "text-blue-700" : "default"
+              }
+            >
+              My Toys
+            </NavLink>
+          </li>
           {user && (
             <li>
               <NavLink
@@ -203,7 +211,6 @@ const NavBar = () => {
               Blogs
             </NavLink>
           </li>
-
           <li>
             {user ? (
               <NavLink
@@ -233,9 +240,11 @@ const NavBar = () => {
         </ul>
       </div>
 
+      {/* Right side of the navbar */}
       <div className="navbar-end flex justify-end">
         {user && (
           <div>
+            {/* User profile picture */}
             <div className="tooltip tooltip-left" data-tip={user?.displayName}>
               <img
                 className="ring ring-blue-300 md:ring-blue-500 rounded-full block w-8"

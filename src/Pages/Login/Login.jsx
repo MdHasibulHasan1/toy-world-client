@@ -4,15 +4,19 @@ import Lottie from "react-lottie";
 import animationData from "../../assets/animation.json";
 import { AuthContext } from "../../providers/AuthProvider";
 import toast from "react-hot-toast";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { FaGoogle, FaGithub } from "react-icons/fa";
+import useTitle from "../../hooks/useTitle";
 
 const Login = () => {
   const [error, setError] = useState("");
   const [showPassword, setShowPassword] = useState(false);
-  const { createUser, signInWithGoogle, updateUserData, signIn } =
-    useContext(AuthContext);
-  console.log(createUser);
+  const { signInWithGoogle, signIn } = useContext(AuthContext);
+  useTitle("Login");
+  const location = useLocation();
+
+  const from = location.state?.from?.pathname || "/";
+
   const navigate = useNavigate();
   const handleGoogleSignIn = () => {
     signInWithGoogle()
@@ -21,6 +25,7 @@ const Login = () => {
         navigate("/");
 
         toast.success("Login successful!");
+        navigate(from, { replace: true });
       })
       .catch((error) => {
         console.log(error);
@@ -31,17 +36,14 @@ const Login = () => {
     const form = event.target;
     const email = form.email.value;
     const password = form.password.value;
-
-    // validation
     setError("");
-
     signIn(email, password)
       .then((result) => {
         const loggedUser = result.user;
         console.log(loggedUser);
         form.reset();
         toast.success("Login successful!");
-        // navigate(from, { replace: true });
+        navigate(from, { replace: true });
       })
       .catch((error) => {
         console.log(error);

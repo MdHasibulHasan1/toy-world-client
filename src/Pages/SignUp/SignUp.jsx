@@ -2,16 +2,17 @@ import React, { useState, useContext } from "react";
 import { motion } from "framer-motion";
 import Lottie from "react-lottie";
 import animationData from "../../assets/animation.json";
-import toast from "react-hot-toast";
 import { AuthContext } from "../../providers/AuthProvider";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import useTitle from "../../hooks/useTitle";
+import Swal from "sweetalert2";
 const SignUpPage = () => {
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
   const [showPassword, setShowPassword] = useState(false);
-  const { createUser, updateUserData, logOut } = useContext(AuthContext);
-  console.log(createUser);
-
+  const { createUser, logOut } = useContext(AuthContext);
+  useTitle("Register");
+  const navigate = useNavigate();
   const handleSubmit = (e) => {
     event.preventDefault();
     const form = event.target;
@@ -24,10 +25,7 @@ const SignUpPage = () => {
     // validation
     setError("");
     setSuccess("");
-    if (!/(?=.*[A-Z].*[A-Z])/.test(password)) {
-      setError("Please add at least two uppercase.");
-      return;
-    } else if (password.length < 6) {
+    if (password.length < 6) {
       setError("Your password must be at least 6 characters");
       return;
     } else if (!/(?=.*[!@#$&*])/.test(password)) {
@@ -41,12 +39,12 @@ const SignUpPage = () => {
       .then((result) => {
         const loggedUser = result.user;
         console.log(loggedUser);
-        updateUserData(result.user, name, photo);
         logOut()
           .then((result) => {})
           .catch((error) => console.error(error));
         setSuccess("Account created successfully");
-        toast.success("Account created successfully!");
+        Swal.fire("Good job!", "Account created successfully!!", "success");
+
         navigate("../login");
       })
       .catch((error) => {

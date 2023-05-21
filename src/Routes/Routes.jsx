@@ -10,6 +10,8 @@ import Home from "../Pages/Home/Home";
 import Login from "../Pages/Login/Login";
 import MyToys from "../Pages/MyToys/MyToys";
 import SignUpPage from "../Pages/SignUp/SignUp";
+import SubCategories from "../Pages/SubCategories";
+import PrivateRoute from "./PrivateRoute";
 
 const router = createBrowserRouter([
   {
@@ -39,15 +41,36 @@ const router = createBrowserRouter([
       },
       {
         path: "/my_toys",
-        element: <MyToys></MyToys>,
+        element: (
+          <PrivateRoute>
+            <MyToys></MyToys>
+          </PrivateRoute>
+        ),
       },
       {
         path: "/blogs",
         element: <BlogPage></BlogPage>,
       },
+
       {
-        path: "toy/:Id",
-        element: <ToyDetail></ToyDetail>,
+        path: "/subCategories/:id",
+        element: (
+          <PrivateRoute>
+            <SubCategories></SubCategories>
+          </PrivateRoute>
+        ),
+        loader: ({ params }) =>
+          fetch(
+            `https://toy-marketplace-server-hasib7143-gmailcom.vercel.app/sub-categories`
+          ),
+      },
+      {
+        path: "/toy/:Id",
+        element: (
+          <PrivateRoute>
+            <ToyDetail></ToyDetail>
+          </PrivateRoute>
+        ),
         loader: ({ params }) =>
           fetch(`https://toy-marketplace-server-xi.vercel.app/toys`),
       },

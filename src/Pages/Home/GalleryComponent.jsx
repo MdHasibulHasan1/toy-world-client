@@ -19,7 +19,15 @@ const GalleryComponent = () => {
 
   const BasicRows = () => <Gallery photos={photos} />;
   return (
-    <div>
+    <div className=" mx-4">
+      <h2 className="text-2xl pl-2 text-yellow-500 font-bold mb-4">
+        Photo Gallery
+      </h2>
+      <p className="text-gray-700 pl-2">
+        Explore our beautiful photo gallery showcasing memorable moments and
+        captivating scenes. From stunning landscapes to joyful celebrations,
+        browse through the collection and get inspired.
+      </p>
       <Gallery photos={photos} onClick={openLightbox} />
       <ModalGateway>
         {viewerIsOpen ? (

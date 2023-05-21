@@ -3,9 +3,24 @@ import { FaFacebook, FaTwitter, FaDribbble, FaInstagram } from "react-icons/fa";
 
 const Footer = () => {
   return (
-    <footer className="bg-gray-100 py-8">
+    <footer className="bg-gray-100 py-8 mt-6">
       <div className="container mx-auto px-4">
         <div className="grid grid-cols-1 lg:grid-cols-4 gap-6">
+          {/* logo */}
+          <div className="flex flex-col space-y-4">
+            <div className="flex font-extrabold text-3xl">
+              <img
+                src="https://i.ibb.co/GFFS7fc/20230520-105431.png"
+                alt="Website Logo"
+                className="h-8"
+              />
+            </div>
+
+            <p className="text-sm">
+              Toy World is an online platform dedicated to bringing joy and
+              excitement to children and toy enthusiasts worldwide.
+            </p>
+          </div>
           {/* Address */}
           <div className="text-sm">
             <h3 className="text-lg font-bold mb-4">Address</h3>
@@ -14,16 +29,6 @@ const Footer = () => {
               785 15th Street, Office 478
               <br />
               Berlin, DE 81566
-            </p>
-          </div>
-
-          {/* Say Hello */}
-          <div className="text-sm">
-            <h3 className="text-lg font-bold mb-4">Say Hello</h3>
-            <p>
-              info@email.com
-              <br />
-              +1 840 841 25 69
             </p>
           </div>
 
@@ -71,12 +76,6 @@ const Footer = () => {
               </button>
             </form>
           </div>
-        </div>
-
-        {/* Logo */}
-        <div className="flex items-center justify-center mt-6 font-extrabold text-3xl">
-          {/* <img src="/path/to/logo.png" alt="Website Logo" className="h-8" /> */}
-          Toy World
         </div>
 
         <div className="mt-6 text-center">

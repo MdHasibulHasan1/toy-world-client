@@ -2,15 +2,16 @@ import React, { useState, useEffect, useContext } from "react";
 import { AuthContext } from "../../providers/AuthProvider";
 import toast from "react-hot-toast";
 import Swal from "sweetalert2";
+import useTitle from "../../hooks/useTitle";
 
 const MyToys = () => {
   const [selectedToy, setSelectedToy] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [myToys, setMyToys] = useState([]);
-  const [searchText, setSearchText] = useState("");
+  useTitle("My Toys");
   const { user } = useContext(AuthContext);
-  const [sortOrder, setSortOrder] = useState("asc"); // Added sorting state
-
+  const [sortOrder, setSortOrder] = useState(""); // Added sorting state
+  const [control, setControl] = useState(false);
   useEffect(() => {
     // Fetch my toys data here
     fetch(`https://toy-marketplace-server-xi.vercel.app/myToys/${user?.email}`)
@@ -19,7 +20,7 @@ const MyToys = () => {
         console.log(data);
         setMyToys(data);
       });
-  }, [user, isModalOpen]);
+  }, [user, control]);
 
   useEffect(() => {
     // Sort the toys when sortOrder changes
@@ -43,6 +44,7 @@ const MyToys = () => {
       .then((res) => res.json())
       .then((result) => {
         if (result.modifiedCount > 0) {
+          setControl(!control);
           toast.success("Edit successful!");
         }
         console.log(result);
@@ -104,17 +106,11 @@ const MyToys = () => {
 
   return (
     <div>
-      <div className="">
+      <div className="pt-20">
         <h1 className="text-center p-4">ALL My Toys</h1>
-        <div className="search-box p-2 text-center">
-          <input
-            onChange={(e) => setSearchText(e.target.value)}
-            type="text"
-            className="p-1"
-          />
-        </div>
+
         <div className="overflow-x-auto">
-          <div className="flex justify-end p-4">
+          <div className="flex justify-center p-4">
             <button
               className="btn btn-primary mr-2"
               onClick={handleSortAscending}
