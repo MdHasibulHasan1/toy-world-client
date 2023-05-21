@@ -6,7 +6,7 @@ import AOS from "aos";
 import "aos/dist/aos.css";
 import { Carousel } from "react-responsive-carousel";
 import "react-responsive-carousel/lib/styles/carousel.min.css";
-import Marquee from "react-marquee";
+import Marquee from "react-fast-marquee";
 
 const Banner = () => {
   const carouselData = [
@@ -54,7 +54,11 @@ const Banner = () => {
               <div className="relative w-28 h-28 pt-4 rounded-full bg-yellow-500">
                 <Lottie options={lottieOptions} height={90} width={90} />
               </div>
-              <div className="bg-yellow-500 w-full my-10 p-2"></div>
+              <div className="bg-yellow-500 w-full my-10 p-2">
+                <Marquee className="font-bold" pauseOnHover={true} speed={30}>
+                  Welcome to Toy World!
+                </Marquee>
+              </div>
 
               <div className="relative w-28 h-28 pt-4 rounded-full bg-yellow-500">
                 <Lottie options={lottieOptions} height={90} width={90} />

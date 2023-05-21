@@ -72,18 +72,20 @@ const NavBar = () => {
                 All Toys
               </NavLink>
             </li>
-            <li>
-              <NavLink
-                to="/my_toys"
-                aria-label="my_toys"
-                title="My Toys"
-                className={({ isActive }) =>
-                  isActive ? "text-blue-700" : "default"
-                }
-              >
-                My Toys
-              </NavLink>
-            </li>
+            {user && (
+              <li>
+                <NavLink
+                  to="/my_toys"
+                  aria-label="my_toys"
+                  title="My Toys"
+                  className={({ isActive }) =>
+                    isActive ? "text-blue-700" : "default"
+                  }
+                >
+                  My Toys
+                </NavLink>
+              </li>
+            )}
             {user && (
               <li>
                 <NavLink
@@ -173,18 +175,20 @@ const NavBar = () => {
               All Toys
             </NavLink>
           </li>
-          <li>
-            <NavLink
-              to="/my_toys"
-              aria-label="my_toys"
-              title="My Toys"
-              className={({ isActive }) =>
-                isActive ? "text-blue-700" : "default"
-              }
-            >
-              My Toys
-            </NavLink>
-          </li>
+          {user && (
+            <li>
+              <NavLink
+                to="/my_toys"
+                aria-label="my_toys"
+                title="My Toys"
+                className={({ isActive }) =>
+                  isActive ? "text-blue-700" : "default"
+                }
+              >
+                My Toys
+              </NavLink>
+            </li>
+          )}
           {user && (
             <li>
               <NavLink

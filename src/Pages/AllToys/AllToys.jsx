@@ -60,17 +60,19 @@ const AllToys = () => {
         <table className="table w-full lg:w-10/12 mx-auto">
           <thead>
             <tr>
+              <th>#</th>
               <th>Seller</th>
               <th>Toy Name</th>
               <th>Sub-category</th>
               <th>Price</th>
-              <th>Available Quantity</th>
+              <th>Quantity</th>
               <th>View Details</th>
             </tr>
           </thead>
           <tbody>
-            {toys?.map((toy) => (
+            {toys?.map((toy, i) => (
               <tr key={toy._id}>
+                <td>{i + 1}</td>
                 <td>{toy?.sellerName}</td>
                 <td>{toy.toyName}</td>
                 <td>{toy?.subCategory}</td>
